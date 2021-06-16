@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useContext } from 'react';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
+import { ThemeProvider, Container } from '@material-ui/core';
+import Layout from './components/Layout';
+import themeContext from './context/themeContext';
+
 import './App.css';
 
 function App() {
+  const { theme } = useContext(themeContext);
+  const materialtheme = createMuiTheme({
+    palette: { type: theme === 'Light' ? 'light' : 'dark' }
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={materialtheme}>
+      <Container>
+        <Layout />
+      </Container>
+    </ThemeProvider>
   );
 }
 
